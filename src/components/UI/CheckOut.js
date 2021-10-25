@@ -100,10 +100,17 @@ const Checkout = (props) => {
 			option,
 		)
 			.then((response) => response.json())
-			.then((data) => {
-				setTimeout(props.onClose, 5000);
-				setTimeout(cartCtx.resetItem, 5000);
-			})
+			.then(
+				() =>
+					new Promise((resolve, reject) => {
+						notify();
+						setTimeout(() => {
+							resolve();
+						}, 5000);
+					}),
+			)
+			.then(() => props.onClose())
+			.then(() => cartCtx.resetItem())
 			.catch((error) => console.log(error));
 	};
 
@@ -172,10 +179,7 @@ const Checkout = (props) => {
 					<button type='button' onClick={props.onClose}>
 						Cancel
 					</button>
-					<button
-						onClick={notify}
-						disabled={!isFormValid}
-						className={classes.submit}>
+					<button disabled={!isFormValid} className={classes.submit}>
 						Confirm
 					</button>
 				</div>
