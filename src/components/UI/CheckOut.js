@@ -92,6 +92,9 @@ const Checkout = (props) => {
 			},
 			body: JSON.stringify(orderInfo),
 		};
+		if (!isFormValid) {
+			return;
+		}
 		fetch(
 			`https://meals-react-1357d-default-rtdb.firebaseio.com/order-info.json`,
 			option,
@@ -166,7 +169,7 @@ const Checkout = (props) => {
 					)}
 				</div>
 				<div className={classes.actions}>
-					<button type='button' onClick={props.onCancel}>
+					<button type='button' onClick={props.onClose}>
 						Cancel
 					</button>
 					<button

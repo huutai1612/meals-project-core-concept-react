@@ -26,10 +26,6 @@ const Cart = (props) => {
 		setOrderConfirmed(true);
 	};
 
-	const cancelHandler = () => {
-		setOrderConfirmed(false);
-	};
-
 	const cartItems = (
 		<ul className={classes['cart-items']}>
 			{cartCtx.items.map((item) => (
@@ -45,6 +41,19 @@ const Cart = (props) => {
 		</ul>
 	);
 
+	const modalBtn = (
+		<div className={classes.actions}>
+			<button className={classes['button--alt']} onClick={props.onClose}>
+				Close
+			</button>
+			{hasItems && (
+				<button onClick={orderClickHandler} className={classes.button}>
+					Order
+				</button>
+			)}
+		</div>
+	);
+
 	return (
 		<Modal onClose={props.onClose}>
 			{cartItems}
@@ -52,19 +61,8 @@ const Cart = (props) => {
 				<span>Total Amount</span>
 				<span>{totalAmount}</span>
 			</div>
-			<div className={classes.actions}>
-				<button className={classes['button--alt']} onClick={props.onClose}>
-					Close
-				</button>
-				{hasItems && (
-					<button onClick={orderClickHandler} className={classes.button}>
-						Order
-					</button>
-				)}
-			</div>
-			{orderConfirmed && (
-				<Checkout onClose={props.onClose} onCancel={cancelHandler} />
-			)}
+			{orderConfirmed && <Checkout onClose={props.onClose} />}
+			{!orderConfirmed && modalBtn}
 		</Modal>
 	);
 };
