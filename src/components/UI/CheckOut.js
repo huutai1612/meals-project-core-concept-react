@@ -37,6 +37,18 @@ const Checkout = (props) => {
 		});
 	};
 
+	const notifyError = () => {
+		toast.error('Something error Happen Please try again', {
+			position: 'top-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+	};
+
 	const {
 		inputValue: name,
 		isValid: isNameValid,
@@ -96,7 +108,7 @@ const Checkout = (props) => {
 			return;
 		}
 		fetch(
-			`https://meals-react-1357d-default-rtdb.firebaseio.com/order-info.json`,
+			`https://meals-react-1357d-default-rtdb.firebaseio.com/order-info.jso`,
 			option,
 		)
 			.then((response) => response.json())
@@ -111,7 +123,7 @@ const Checkout = (props) => {
 			)
 			.then(() => props.onClose())
 			.then(() => cartCtx.resetItem())
-			.catch((error) => console.log(error));
+			.catch((error) => notifyError());
 	};
 
 	const nameClasses = isNameError ? classes.invalid : classes.control;
