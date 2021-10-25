@@ -108,7 +108,7 @@ const Checkout = (props) => {
 			return;
 		}
 		fetch(
-			`https://meals-react-1357d-default-rtdb.firebaseio.com/order-info.jso`,
+			`https://meals-react-1357d-default-rtdb.firebaseio.com/order-info.json`,
 			option,
 		)
 			.then((response) => response.json())
