@@ -12,8 +12,8 @@ const option = {
 
 const AvailableMeals = () => {
 	const [meals, setMeals] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [httpError, setHttpError] = useState(null);
 
 	useEffect(() => {
 		fetch(
@@ -24,7 +24,7 @@ const AvailableMeals = () => {
 			.then(transformData)
 			.catch((error) => {
 				const newError = new Error('Something is Error while getting meals.');
-				setError(newError.message);
+				setHttpError(newError.message);
 			});
 	}, []);
 
@@ -42,8 +42,8 @@ const AvailableMeals = () => {
 		setIsLoading(false);
 	};
 
-	const mealsList = error ? (
-		<h3>{error}</h3>
+	const mealsList = httpError ? (
+		<h3 className={classes['text-error']}>{httpError}</h3>
 	) : (
 		meals.map((meal) => (
 			<MealItem
