@@ -16,6 +16,8 @@ function App() {
 		setCartIsShown(false);
 	};
 
+	// Add a new line to change git
+
 	return (
 		<CartProvider>
 			{cartIsShown && <Cart onClose={hideCartHandler} />}
